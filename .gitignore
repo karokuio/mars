@@ -1,5 +1,6 @@
 # ENV files
 config/dev.env.js
+config/prod.env.js
 
 # Project Directories
 dist/
