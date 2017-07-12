@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import kkNotFound from '@/layouts/kkNotFound'
+import kkAdmin from '~/kkAdmin'
+import kkNotFound from '~/kkNotFound'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'Hello',
-    //   component:
-    // },
+    {
+      path: '/admin',
+      name: 'kkAdmin',
+      component: kkAdmin
+    },
     {
       path: '/not-found',
       name: '404',

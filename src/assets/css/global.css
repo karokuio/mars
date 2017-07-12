@@ -1,8 +1,19 @@
 @import './colors';
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-  color: var(--color-black);
+  color: var(--color-hard-grey);
+  background-color: var(--color-grey);
   font-size: 100%;
   line-height: 1;
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
