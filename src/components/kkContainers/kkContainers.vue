@@ -43,6 +43,7 @@
   .containers {
     & .containers-title {
       padding-bottom: .5rem;
+      margin-bottom: 1rem;
       font-size: .8rem;
       font-weight: 700;
       text-transform: uppercase;

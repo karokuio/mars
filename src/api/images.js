@@ -4,7 +4,7 @@ export default http => ({
   async list () {
     try {
       const RESPONSE = await http.get(
-        `containers/json`,
+        `images/json`,
         {
           params: {
             all: true
@@ -12,18 +12,7 @@ export default http => ({
         }
       )
 
-      const KEYS = [
-        'Id',
-        'Created',
-        'Names',
-        'Image',
-        'State',
-        'Status',
-        'Ports',
-        'Labels'
-      ]
-
-      return pick(KEYS, RESPONSE.data)
+      return pick(['Id', 'Created', 'Size', 'RepoTags'], RESPONSE.data)
     } catch (error) {
       console.error(error)
       return error

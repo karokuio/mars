@@ -8,6 +8,8 @@
       section.dashboard
         kkCard(size='big')
           kkContainers(v-bind:containers='containers')
+        kkCard(size='big')
+          kkImages(v-bind:images='images')
 </template>
 
 <script>
@@ -15,27 +17,35 @@
   import kkContact from '#/kkContact/kkContact'
   import kkCard from '#/kkCard/kkCard'
   import kkContainers from '#/kkContainers/kkContainers'
+  import kkImages from '#/kkImages/kkImages'
 
-  import { containersService } from '@/api'
+  import { containersService, imagesService } from '@/api'
 
   export default {
     name: 'kkAdmin',
     data () {
       return {
-        containers: []
+        containers: [],
+        images: []
       }
     },
     components: {
       kkMenu,
       kkContact,
       kkCard,
-      kkContainers
+      kkContainers,
+      kkImages
     },
     created () {
       containersService.list()
         .then(containers => {
-          console.log('containers', containers)
           this.containers = containers
+        })
+
+      imagesService.list()
+        .then(images => {
+          console.log('images', images)
+          this.images = images
         })
     }
   }
