@@ -5,6 +5,8 @@
     main.container
       aside.header
         kkContact
+      aside
+        kkNotification
       section.dashboard
         kkCard(size='big')
           kkContainers(v-bind:containers='containers')
@@ -18,6 +20,7 @@
   import kkCard from '#/kkCard/kkCard'
   import kkContainers from '#/kkContainers/kkContainers'
   import kkImages from '#/kkImages/kkImages'
+  import kkNotification from '#/kkNotification/kkNotification'
 
   import { containersService, imagesService } from '@/api'
 
@@ -34,7 +37,8 @@
       kkContact,
       kkCard,
       kkContainers,
-      kkImages
+      kkImages,
+      kkNotification
     },
     created () {
       containersService.list()

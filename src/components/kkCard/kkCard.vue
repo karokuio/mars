@@ -5,6 +5,7 @@
 
 <script>
   const SIZES = ['small', 'medium', 'big', 'super']
+
   export default {
     name: 'kkCard',
     props: {

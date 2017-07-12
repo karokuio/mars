@@ -23,6 +23,9 @@
 
 <script>
   import moment from 'moment'
+  import EventBus from '@/bus'
+
+  import { imagesService } from '@/api'
 
   export default {
     name: 'kkImages',
@@ -44,8 +47,14 @@
       created (size) {
         return moment.unix(size).fromNow()
       },
-      remove (imageId) {
-
+      remove (imageID) {
+        imagesService.remove(imageID)
+          .then(data => console.log(data))
+          .catch(err => EventBus.$emit('notification', {
+            title: `Image ${imageID} not deleted`,
+            msg: err.message,
+            type: 'error'
+          }))
       }
     }
   }

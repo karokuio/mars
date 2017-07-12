@@ -14,8 +14,18 @@ export default http => ({
 
       return pick(['Id', 'Created', 'Size', 'RepoTags'], RESPONSE.data)
     } catch (error) {
-      console.error(error)
-      return error
+      throw error
+    }
+  },
+  async remove (imageID) {
+    try {
+      const RESPONSE = await http.delete(
+        `images/${imageID}`
+      )
+
+      return pick(['Id', 'Created', 'Size', 'RepoTags'], RESPONSE.data)
+    } catch (error) {
+      throw error
     }
   }
 })

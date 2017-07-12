@@ -25,8 +25,7 @@ export default http => ({
 
       return pick(KEYS, RESPONSE.data)
     } catch (error) {
-      console.error(error)
-      return error
+      throw error
     }
   }
 })
