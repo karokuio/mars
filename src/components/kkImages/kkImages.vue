@@ -49,7 +49,11 @@
       },
       remove (imageID) {
         imagesService.remove(imageID)
-          .then(data => console.log(data))
+          .then(data => EventBus.$emit('notification', {
+            title: `Image ${imageID} removed`,
+            msg: 'Image removed successfully',
+            type: 'success'
+          }))
           .catch(err => EventBus.$emit('notification', {
             title: `Image ${imageID} not deleted`,
             msg: err.message,

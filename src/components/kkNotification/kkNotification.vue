@@ -95,7 +95,7 @@
     &.info {
       background-color: color(var(--color-info) alpha(30%));
       border: 1px solid color(var(--color-info) blackness(20%));
-      color: color(var(--color-info) blackness(20%));
+      color: color(var(--color-info) blackness(40%));
 
       & .close {
         color: color(var(--color-info) blackness(20%));
@@ -105,7 +105,7 @@
     &.success {
       background-color: color(var(--color-success) alpha(30%));
       border: 1px solid color(var(--color-success) blackness(20%));
-      color: color(var(--color-success) blackness(20%));
+      color: color(var(--color-success) blackness(40%));
 
       & .close {
         color: color(var(--color-success) blackness(20%));
@@ -115,7 +115,7 @@
     &.warning {
       background-color: color(var(--color-warning) alpha(30%));
       border: 1px solid color(var(--color-warning) blackness(20%));
-      color: color(var(--color-warning) blackness(20%));
+      color: color(var(--color-warning) blackness(40%));
 
       & .close {
         color: color(var(--color-warning) blackness(20%));
@@ -125,7 +125,7 @@
     &.error {
       background-color: color(var(--color-danger) alpha(30%));
       border: 1px solid color(var(--color-danger) blackness(20%));
-      color: color(var(--color-danger) blackness(20%));
+      color: color(var(--color-danger) blackness(40%));
 
       & .close {
         color: color(var(--color-danger) blackness(20%));
