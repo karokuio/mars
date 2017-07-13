@@ -28,10 +28,16 @@
           h2.small-title
             i.small-icon.ion-ios-list-outline
             | Resume
-          .small-content
-            p Running {{ system.ContainersRunning }}
-            p Stopped {{ system.ContainersStopped }}
-            p Paused {{ system.ContainersPaused }}
+          ul.small-content.small-list
+            li.item
+              p {{ system.ContainersRunning }}
+              span.info.running Running
+            li.item
+              p {{ system.ContainersStopped }}
+              span.info.stopped Stopped
+            li.item
+              p {{ system.ContainersPaused }}
+              span.info.paused Paused
         kkCard(size='small')
           h2.small-title
             i.small-icon.ion-flag
@@ -251,6 +257,31 @@
         font-weight: 600;
         text-align: center;
         width: 100%;
+      }
+
+      &.small-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: center;
+
+        & p {
+          font-size: 1.5rem;
+          line-height: 3rem;
+          font-weight: 600;
+        }
+
+        & .info {
+          &.running {
+            color: var(--color-success);
+          }
+          &.paused {
+            color: var(--color-info);
+          }
+          &.stopped {
+            color: var(--color-warning);
+          }
+        }
       }
     }
 
