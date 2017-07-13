@@ -181,6 +181,10 @@
         return moment.unix(value).fromNow()
       },
       size (size) {
+        if (!size) {
+          return false
+        }
+
         for (var i = 0; size >= 1024 && i < 4; i++) {
           size = size / 1024
         }
