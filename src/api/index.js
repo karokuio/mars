@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import containers from '@/api/containers'
 import images from '@/api/images'
+import system from '@/api/system'
+import events from '@/api/events'
 
 const instance = axios.create({
   baseURL: process.env.API
@@ -19,8 +21,12 @@ instance.interceptors.response.use(
 
 const containersService = containers(instance)
 const imagesService = images(instance)
+const systemService = system(instance)
+const eventsService = events(instance)
 
 export {
   containersService,
-  imagesService
+  imagesService,
+  systemService,
+  eventsService
 }

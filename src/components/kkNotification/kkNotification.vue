@@ -37,13 +37,13 @@
         this.title = title
         this.msg = msg
 
-        this.show = true
+        this.open()
 
         window.setTimeout(this.close, 5000)
       })
     },
     methods: {
-      show () {
+      open () {
         this.show = true
       },
       close () {

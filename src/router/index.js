@@ -10,7 +10,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/admin',
+      path: '/',
       name: 'kkAdmin',
       component: kkAdmin
     },

@@ -8,28 +8,130 @@
       aside
         kkNotification
       section.dashboard
-        kkCard(size='big')
-          kkContainers(v-bind:containers='containers')
+        kkCard(size='small')
+          h2.small-title
+            i.small-icon.ion-cube
+            | Oldest Container
+          .small-content
+            h3 {{ oldest.name }}
+          .small-footer
+            p created at {{ createdAt(oldest.created) }}
+        kkCard(size='small')
+          h2.small-title
+            i.small-icon.ion-ios-albums
+            | Bigest Image
+          .small-content
+            h3 {{ bigest.tag }}
+          .small-footer
+            p with size {{ size(bigest.size) }}
+        kkCard(size='small')
+          h2.small-title
+            i.small-icon.ion-ios-list-outline
+            | Resume
+          .small-content
+            p Running {{ system.ContainersRunning }}
+            p Stopped {{ system.ContainersStopped }}
+            p Paused {{ system.ContainersPaused }}
+        kkCard(size='small')
+          h2.small-title
+            i.small-icon.ion-flag
+            | Version
+          .small-content
+            p {{ version }}
+            p {{ OS }}
+
         kkCard(size='big')
           kkImages(v-bind:images='images')
+        kkCard(size='big')
+          kkContainers(v-bind:containers='containers')
+    kkModal
 </template>
 
 <script>
+  import moment from 'moment'
+
   import kkMenu from '#/kkMenu/kkMenu'
   import kkContact from '#/kkContact/kkContact'
   import kkCard from '#/kkCard/kkCard'
   import kkContainers from '#/kkContainers/kkContainers'
   import kkImages from '#/kkImages/kkImages'
-  import kkNotification from '#/kkNotification/kkNotification'
+  import kkSystem from '#/kkSystem/kkSystem'
 
-  import { containersService, imagesService } from '@/api'
+  import kkNotification from '#/kkNotification/kkNotification'
+  import kkModal from '#/kkModal/kkModal'
+
+  import {
+    containersService,
+    imagesService,
+    systemService,
+    eventsService
+  } from '@/api'
 
   export default {
     name: 'kkAdmin',
     data () {
       return {
         containers: [],
-        images: []
+        images: [],
+        system: {
+          ContainersRunning: undefined,
+          ContainersStopped: undefined,
+          ContainersPaused: undefined
+        },
+        version: undefined,
+        OS: undefined
+      }
+    },
+    computed: {
+      oldest () {
+        const oldest = this.containers.reduce(
+          (acc, item) => {
+            if (!Object.keys(acc).length) {
+              return item
+            }
+
+            if (item.created === Math.min(acc.created, item.created)) {
+              return item
+            }
+
+            return acc
+          },
+          {}
+        )
+
+        if (oldest.names) {
+          return {
+            name: oldest.names[0].substring(1),
+            created: oldest.created
+          }
+        }
+
+        return oldest
+      },
+      bigest () {
+        const bigest = this.images.reduce(
+          (acc, item) => {
+            if (!Object.keys(acc).length) {
+              return item
+            }
+
+            if (item.size === Math.max(acc.size, item.size)) {
+              return item
+            }
+
+            return acc
+          },
+          {}
+        )
+
+        if (bigest.repotags) {
+          return {
+            tag: bigest.repotags[0],
+            size: bigest.size
+          }
+        }
+
+        return bigest
       }
     },
     components: {
@@ -38,7 +140,9 @@
       kkCard,
       kkContainers,
       kkImages,
-      kkNotification
+      kkSystem,
+      kkNotification,
+      kkModal
     },
     created () {
       containersService.list()
@@ -48,9 +152,34 @@
 
       imagesService.list()
         .then(images => {
-          console.log('images', images)
           this.images = images
         })
+
+      systemService.info()
+        .then(system => {
+          this.system = system
+        })
+
+      systemService.version()
+        .then(version => {
+          this.version = version.Version
+          this.OS = version.Os
+        })
+
+      eventsService.events()
+        .then(events => console.log('events', events))
+    },
+    methods: {
+      createdAt (value) {
+        return moment.unix(value).fromNow()
+      },
+      size (size) {
+        for (var i = 0; size >= 1024 && i < 4; i++) {
+          size = size / 1024
+        }
+        const MEASURE = ['Bytes', 'KB', 'MB', 'GB', 'TB'][i]
+        return `${size.toFixed(2)} ${MEASURE}`
+      }
     }
   }
 </script>
@@ -95,6 +224,43 @@
       justify-content: space-between;
 
       padding: 1rem;
+    }
+
+    & .small-title {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      color: var(--color-black);
+      font-size: .7rem;
+      line-height: 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    & .small-icon {
+      font-size: 1rem;
+      margin-right: .5rem;
+    }
+
+    & .small-content {
+      & h3 {
+        font-size: 1.5rem;
+        line-height: 3.2rem;
+        font-weight: 600;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    & .small-footer {
+      & p {
+        color: var(--color-success);
+        font-size: .6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-align: right;
+      }
     }
   }
 </style>

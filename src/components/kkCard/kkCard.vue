@@ -29,7 +29,7 @@
   }
 
   .card {
-    padding: 1.2rem 1.2rem .9rem;
+    padding: .65rem .9rem;
     margin-bottom: 1rem;
 
     max-width: 100%;
@@ -39,7 +39,7 @@
 
     background: var(--color-white);
     border: 1px solid color(var(--color-grey) blackness(30%));
-    border-radius: .5rem;
+    border-radius: 3px;
 
     &.card-small {
       flex-basis: calc(25% - var(--space));
