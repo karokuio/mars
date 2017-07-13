@@ -23,8 +23,6 @@
     display: flex;
     flex-direction: row;
 
-    padding: .5rem;
-
     & .contact-photo {
       padding-right: 1rem;
       & .contact-image {

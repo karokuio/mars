@@ -1,9 +1,10 @@
 <template lang='pug'>
   .admin
-    .navigation
-      kkMenu
-    main.container
+    .navigation(v-show='menuItems.length')
+      kkMenu(v-bind:items='menuItems')
+    main.container(v-bind:class='{ "no-navigation": !menuItems.length }')
       aside.header
+        kkLogo(v-show='!menuItems.length')
         kkContact
       aside
         kkNotification
@@ -65,6 +66,7 @@
   import moment from 'moment'
 
   import kkMenu from '#/kkMenu/kkMenu'
+  import kkLogo from '#/kkLogo/kkLogo'
   import kkContact from '#/kkContact/kkContact'
   import kkCard from '#/kkCard/kkCard'
   import kkContainers from '#/kkContainers/kkContainers'
@@ -106,6 +108,9 @@
       }
     },
     computed: {
+      menuItems () {
+        return this.containers.filter(item => item.state === 'exited')
+      },
       oldest () {
         const oldest = this.containers.reduce(
           (acc, item) => {
@@ -159,6 +164,7 @@
     },
     components: {
       kkMenu,
+      kkLogo,
       kkContact,
       kkCard,
       kkContainers,
@@ -236,11 +242,16 @@
     display: flex;
     flex-direction: row;
 
+    & .logo {
+      color: var(--color-hard-blue);
+    }
+
     & .navigation {
       position: fixed;
       z-index: 100;
       top: 0;
       left: 0;
+
 
       width: 15rem;
       height: 100%;
@@ -252,14 +263,25 @@
 
       width: 100%;
       padding-left: 15rem;
+
+      &.no-navigation {
+        padding-left: 0;
+      }
+    }
+
+    & .no-navigation .header {
+      justify-content: space-between;
+      align-items: center;
     }
 
     & .header {
       display: flex;
       justify-content: flex-end;
+      padding: .5rem 1rem;
 
       background-color: var(--color-white);
       border-bottom: 1px solid color(var(--color-white) blackness(5%));
+
     }
 
     & .dashboard {

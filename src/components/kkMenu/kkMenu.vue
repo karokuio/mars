@@ -3,12 +3,8 @@
     kkLogo
     nav.items
       ul
-        li.item
-          a(href='') Item 1
-        li.item
-          a(href='') Item 2
-        li.item
-          a(href='') Item 3
+        li.item(v-for='item in items')
+          a(href='') {{ name(item.names) }}
 </template>
 
 <script>
@@ -16,8 +12,20 @@
 
   export default {
     name: 'kkMenu',
+    props: {
+      items: {
+        type: Array,
+        default: [],
+        required: false
+      }
+    },
     components: {
       kkLogo
+    },
+    methods: {
+      name (names) {
+        return names[0].substring(1)
+      }
     }
   }
 
@@ -37,6 +45,18 @@
 
     & .logo {
       padding: 1.5rem;
+    }
+
+    & .no-items {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1rem;
+
+      color: var(--color-white);
+
+      & i {
+        margin-left: .3rem;
+      }
     }
 
     & .items {
