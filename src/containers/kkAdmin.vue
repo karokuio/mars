@@ -37,8 +37,9 @@
             i.small-icon.ion-flag
             | Version
           .small-content
-            p {{ version }}
-            p {{ OS }}
+            h3 {{ version }}
+          .small-footer
+            p installed on {{ OS }}
 
         kkCard(size='big')
           kkImages(v-bind:images='images')
