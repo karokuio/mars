@@ -6,14 +6,14 @@
         strong {{ tag }}
       .image-size {{ size(image.size) }}
       .image-created {{ created(image.created) }}
-      ul.container-actions
-        li.container-action
+      ul.image-actions
+        li.image-action
           button.ion-gear-b(
             alt=''
             type='button'
             v-on:click=''
           )
-        li.container-action
+        li.image-action
           button.ion-trash-b(
             alt=''
             type='button'
@@ -89,13 +89,13 @@
       margin: .5rem 0 1rem 0;
     }
 
-    & .container-actions {
+    & .image-actions {
       display: flex;
       flex-direction: row;
       align-items: center;
 
 
-      & .container-action {
+      & .image-action {
         margin-left: .5rem;
 
         & button {

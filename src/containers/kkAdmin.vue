@@ -51,6 +51,13 @@
           kkImages(v-bind:images='images')
         kkCard(size='big')
           kkContainers(v-bind:containers='containers')
+
+        kkCard(size='medium')
+          kkNetworks(v-bind:networks='networks')
+        kkCard(size='medium')
+          kkVolumes(v-bind:volumes='volumes')
+        kkCard(size='medium')
+          kkNodes(v-bind:nodes='nodes')
     kkModal
 </template>
 
@@ -63,6 +70,9 @@
   import kkContainers from '#/kkContainers/kkContainers'
   import kkImages from '#/kkImages/kkImages'
   import kkSystem from '#/kkSystem/kkSystem'
+  import kkNetworks from '#/kkNetworks/kkNetworks'
+  import kkVolumes from '#/kkVolumes/kkVolumes'
+  import kkNodes from '#/kkNodes/kkNodes'
 
   import kkNotification from '#/kkNotification/kkNotification'
   import kkModal from '#/kkModal/kkModal'
@@ -71,6 +81,9 @@
     containersService,
     imagesService,
     systemService,
+    networksService,
+    volumesService,
+    nodesService,
     eventsService
   } from '@/api'
 
@@ -80,6 +93,9 @@
       return {
         containers: [],
         images: [],
+        networks: [],
+        volumes: [],
+        nodes: [],
         system: {
           ContainersRunning: undefined,
           ContainersStopped: undefined,
@@ -147,6 +163,9 @@
       kkCard,
       kkContainers,
       kkImages,
+      kkNetworks,
+      kkVolumes,
+      kkNodes,
       kkSystem,
       kkNotification,
       kkModal
@@ -171,6 +190,21 @@
         .then(version => {
           this.version = version.Version
           this.OS = version.Os
+        })
+
+      networksService.list()
+        .then(networks => {
+          this.networks = networks
+        })
+
+      volumesService.list()
+        .then(volumes => {
+          this.volumes = volumes.Volumes || []
+        })
+
+      nodesService.list()
+        .then(nodes => {
+          this.nodes = nodes
         })
 
       eventsService.events()

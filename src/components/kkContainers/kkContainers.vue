@@ -53,13 +53,15 @@
 
     & .container-type {
       margin-left: .5rem;
+      padding-top: .3rem;
+      font-size: .6rem;
     }
 
     & .container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
 
       margin: .5rem 0 1rem 0;
     }
@@ -78,10 +80,6 @@
 
     & .container-info {
       flex-grow: 1;
-
-      & .container-type {
-        padding-top: .3rem;
-      }
     }
 
     & .container-actions {
